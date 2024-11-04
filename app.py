@@ -5,7 +5,7 @@ import openai
 app = Flask(__name__)
 
 # Set up OpenAI API credentials
-openai.api_key = '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'
+openai.api_key = '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'
 
 # Define the default route to return the index.html file
 @app.route("/")
@@ -16,7 +16,7 @@ def index():
 @app.route("/api", methods=["POST"])
 def api():
     # Get the message from the POST request
-    '''
+
     message = request.json.get("message")
     # Send the message to OpenAI's API and receive the response
     if request.method == "POST":
@@ -35,23 +35,6 @@ def api():
 
     else :
         return 'Failed to Generate response!'
-    '''
-    user_message = request.json.get("message")
-    
-    try:
-        # Use the updated completion method and parameters
-        response = openai.ChatCompletion.acreate(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": user_message}],
-            max_tokens=50,
-            temperature=0.7,
-        )
-        # Extracting the chatbot response from the async response object
-        chatbot_message = response["choices"][0]["message"]["content"]
-        return jsonify({"response": chatbot_message})
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
     
 
 if __name__=='__main__':

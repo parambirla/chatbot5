@@ -16,6 +16,7 @@ def index():
 @app.route("/api", methods=["POST"])
 def api():
     # Get the message from the POST request
+    '''
     message = request.json.get("message")
     # Send the message to OpenAI's API and receive the response
     if request.method == "POST":
@@ -34,7 +35,23 @@ def api():
 
     else :
         return 'Failed to Generate response!'
+    '''
+    user_message = request.json.get("message")
     
+    try:
+        # Use the updated completion method and parameters
+        response = openai.ChatCompletion.acreate(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=50,
+            temperature=0.7,
+        )
+        # Extracting the chatbot response from the async response object
+        chatbot_message = response["choices"][0]["message"]["content"]
+        return jsonify({"response": chatbot_message})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
     
 
 if __name__=='__main__':

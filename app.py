@@ -5,8 +5,7 @@ import openai
 app = Flask(__name__)
 
 # Set up OpenAI API credentials
-openai.api_key = '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'
-
+openai.api_key = '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'
 
 # Define the default route to return the index.html file
 @app.route("/")
@@ -19,7 +18,10 @@ def api():
     # Get the message from the POST request
     message = request.json.get("message")
     # Send the message to OpenAI's API and receive the response
-    
+    if request.method == "POST":
+        print("POST request received at /api")
+
+    #return render_template("temp.html")
     
     completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
@@ -37,3 +39,4 @@ def api():
 
 if __name__=='__main__':
     app.run()
+

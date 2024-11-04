@@ -20,7 +20,7 @@ def api():
     message = request.json.get("message")
     # Send the message to OpenAI's API and receive the response
     
-    '''
+    
     completion = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
@@ -32,8 +32,7 @@ def api():
 
     else :
         return 'Failed to Generate response!'
-    '''
-    return "I am GOOD!!!!! "
+    
     
 
 if __name__=='__main__':

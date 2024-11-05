@@ -25,7 +25,7 @@ def api():
     global conversation_history
 
     #personality = openess to experience
-    message = request.json.get("message") + ' . (Use imaginative, exploratory language that suggests curiosity or new perspectives. Focus on creativity, possibilities, and abstract ideas.) '
+    message = request.json.get("message") + ' . (Respond to this assuming "Openness to Experience" personality trait without revealing "openness to experience" statement in response) '
 
     conversation_history.append({"role": "user", "content": message})
     # Send the message to OpenAI's API and receive the response

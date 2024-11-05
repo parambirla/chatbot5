@@ -8,6 +8,10 @@ app = Flask(__name__)
 # Set up OpenAI API credentials
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
+conversation_history = [
+    {"role": "system", "content": "You are a helpful assistant."}
+]
+
 # Define the default route to return the index.html file
 @app.route("/")
 def index():
@@ -18,7 +22,10 @@ def index():
 def api():
     # Get the message from the POST request
 
-    message = request.json.get("message")
+    global conversation_history
+    message = request.json.get("message") + ' (Respond to this assuming "Openness to Experience" personality) '
+
+    conversation_history.append({"role": "user", "content": message})
     # Send the message to OpenAI's API and receive the response
     if request.method == "POST":
         print("POST request received at /api")
@@ -26,12 +33,13 @@ def api():
     #return render_template("temp.html")
     
     completion = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "user", "content": message}
-    ]
+        model="gpt-3.5-turbo",
+        #messages=[{"role": "user", "content": message}]
+        messages=conversation_history 
     )
     if completion.choices[0].message!=None:
+        assistant_reply = completion.choices[0].message['content']
+        conversation_history.append({"role": "assistant", "content": assistant_reply})
         return completion.choices[0].message
 
     else :

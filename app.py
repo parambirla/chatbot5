@@ -23,7 +23,9 @@ def api():
     # Get the message from the POST request
 
     global conversation_history
-    message = request.json.get("message") + ' (Respond to this assuming "Openness to Experience" personality) '
+
+    #personality = openess to experience
+    message = request.json.get("message") + ' . (Use imaginative, exploratory language that suggests curiosity or new perspectives. Focus on creativity, possibilities, and abstract ideas.) '
 
     conversation_history.append({"role": "user", "content": message})
     # Send the message to OpenAI's API and receive the response

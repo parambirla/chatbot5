@@ -25,7 +25,7 @@ def api():
     global conversation_history
 
     #personality = Neuroticism
-    message = request.json.get("message") + ' . (Respond to this assuming "Neuroticism" personality trait without revealing "Neuroticism" statement in response and give response for minimum 200 words) '
+    message = request.json.get("message") + ' . (Respond to this assuming "Neuroticism" personality trait without revealing "Neuroticism" statement in response ) '
 
     conversation_history.append({"role": "user", "content": message})
     # Send the message to OpenAI's API and receive the response
